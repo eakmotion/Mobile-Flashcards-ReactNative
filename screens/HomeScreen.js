@@ -1,42 +1,62 @@
-import React, { Component } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { Component } from 'react';
+import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { connect } from 'react-redux';
+import { handleFetchDecks } from '../actions';
+import Deck from '../components/Deck';
 
-export default class HomeScreen extends Component {
+class HomeScreen extends Component {
   static navigationOptions = {
-    title: 'All Decks'
+    title : 'All Decks'
+  };
+
+  componentDidMount() {
+    this.props.dispatch(handleFetchDecks());
   }
 
-  render () {
+  render() {
+    const { decks } = this.props;
+
+    console.log(Object.keys(decks));
     return (
-      <View style={styles.container}>
-        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
-          <View style={styles.getStartedContainer}>
-            <Text style={styles.getStartedText}>
-              Decks
-            </Text>
-          </View>
-        </ScrollView>
-      </View>
-    )
+      <FlatList
+        data={Object.keys(decks)}
+        keyExtractor={(item) => decks[item].title}
+        renderItem={({ item }) => (
+          <Deck
+            key={decks[item].title}
+            title={decks[item].title}
+            total={decks[item].questions.length}
+          />
+        )}
+      />
+    );
   }
 }
 
+const mapStateToProps = (state) => {
+  return {
+    decks : state
+  };
+};
+
 const styles = StyleSheet.create({
-  container : {
-    flex: 1,
+  container           : {
+    flex            : 1,
     backgroundColor : '#fff'
   },
-  contentContainer : {
-    paddingTop: 30
+  contentContainer    : {
+    paddingTop : 30
   },
-  getStartedContainer: {
-    alignItems: 'center',
-    marginHorizontal: 50
+  getStartedContainer : {
+    alignItems       : 'center',
+    marginHorizontal : 50
   },
-  getStartedText: {
-    fontSize: 17,
-    color: 'rgba(96, 100, 109, 1)',
-    lineHeight: 24,
-    textAlign: 'center'
+  getStartedText      : {
+    fontSize   : 17,
+    color      : 'rgba(96, 100, 109, 1)',
+    lineHeight : 24,
+    textAlign  : 'center'
   }
-})
+});
+
+export default connect(mapStateToProps)(HomeScreen);

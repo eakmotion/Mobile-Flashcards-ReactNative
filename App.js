@@ -2,10 +2,16 @@ import React from 'react';
 import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import { AppLoading, Font, Icon } from 'expo';
 import AppNavigator from './navigation/AppNavigator';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import reducer from './reducers';
+import middleware from './middleware';
+
+const store = createStore(reducer, middleware);
 
 export default class App extends React.Component {
   state = {
-    isLoadingComplete: false,
+    isLoadingComplete : false
   };
 
   render() {
@@ -19,10 +25,12 @@ export default class App extends React.Component {
       );
     } else {
       return (
-        <View style={styles.container}>
-          {Platform.OS === 'ios' && <StatusBar barStyle="default" />}
-          <AppNavigator />
-        </View>
+        <Provider store={store}>
+          <View style={styles.container}>
+            {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
+            <AppNavigator />
+          </View>
+        </Provider>
       );
     }
   }
@@ -31,12 +39,12 @@ export default class App extends React.Component {
     return Promise.all([
       Font.loadAsync({
         ...Icon.Ionicons.font,
-        'space-mono': require('./assets/fonts/SpaceMono-Regular.ttf'),
-      }),
+        'space-mono' : require('./assets/fonts/SpaceMono-Regular.ttf')
+      })
     ]);
   };
 
-  _handleLoadingError = error => {
+  _handleLoadingError = (error) => {
     console.warn(error);
   };
 
@@ -46,8 +54,8 @@ export default class App extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
+  container : {
+    flex            : 1,
+    backgroundColor : '#fff'
+  }
 });
