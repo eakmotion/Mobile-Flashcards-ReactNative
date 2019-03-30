@@ -1,12 +1,14 @@
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import Colors from '../constants/Colors'
+import { withNavigation } from 'react-navigation';
+import Colors from '../constants/Colors';
 
 const Deck = (props) => {
-  const { title, total } = props;
-  
+  const { title, total, navigation } = props;
+
   return (
     <TouchableOpacity
+      onPress={() => navigation.navigate('DeckDetail', { deckId: title })}
       style={styles.container}>
       <View style={styles.deckContainer}>
         <Text style={styles.header}>{title}</Text>
@@ -14,33 +16,34 @@ const Deck = (props) => {
       </View>
     </TouchableOpacity>
   );
-}
-
+};
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    backgroundColor: Colors.noticeBackground,
-    borderRadius: 5,
-    margin: 10,
-    shadowRadius: 2,
-    shadowOpacity: 0.5,
-    shadowOffset: {
-      height: 1,
-      width: 0
-    },
+  container     : {
+    alignItems      : 'center',
+    backgroundColor : Colors.buttonBackground,
+    borderRadius    : 5,
+    margin          : 10,
+    shadowRadius    : 2,
+    shadowOpacity   : 0.5,
+    shadowOffset    : {
+      height : 1,
+      width  : 0
+    }
   },
-  deckContainer: {
-    alignItems: 'center',
+  deckContainer : {
+    alignItems    : 'center',
+    paddingTop    : 20,
+    paddingBottom : 20
   },
-  header: {
-    color: Colors.textPrimary,
-    fontSize: 30,
+  header        : {
+    color    : Colors.buttonText,
+    fontSize : 30
   },
-  body: {
-    color: Colors.textSecondary,
-    fontSize: 20,
+  body          : {
+    color    : Colors.butttonTextSecondary,
+    fontSize : 20
   }
-})
+});
 
-export default Deck;
+export default withNavigation(Deck);

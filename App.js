@@ -6,8 +6,36 @@ import { createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './reducers';
 import middleware from './middleware';
+import { createStackNavigator, createAppContainer } from 'react-navigation'
+import Deck from './components/Deck'
+import DeckDetail from './components/DeckDetail'
+import Quiz from './components/Quiz'
+import QuizResult from './components/QuizResult'
 
 const store = createStore(reducer, middleware);
+
+const MainNavigator = createStackNavigator({
+  Home: {
+    screen: AppNavigator,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  Deck: {
+    screen: Deck,
+  },
+  DeckDetail: {
+    screen: DeckDetail
+  },
+  Quiz: {
+    screen: Quiz
+  },
+  QuizResult: {
+    screen: QuizResult
+  }
+})
+
+const StackContainer = createAppContainer(MainNavigator);
 
 export default class App extends React.Component {
   state = {
@@ -28,7 +56,7 @@ export default class App extends React.Component {
         <Provider store={store}>
           <View style={styles.container}>
             {Platform.OS === 'ios' && <StatusBar barStyle='default' />}
-            <AppNavigator />
+            <StackContainer />
           </View>
         </Provider>
       );

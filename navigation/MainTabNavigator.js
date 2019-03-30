@@ -3,15 +3,15 @@ import { Platform } from 'react-native';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 import TabBarIcon from '../components/TabBarIcon';
 
-import HomeScreen from '../screens/HomeScreen';
-import AddDeckScreen from '../screens/AddDeckScreen';
+import Home from '../components/Home';
+import AddDeck from '../components/AddDeck';
 
 const HomeStack = createStackNavigator({
-  Home : HomeScreen
+  Home : Home
 });
 
 const AddDeckStack = createStackNavigator({
-  AddDeck : AddDeckScreen
+  AddDeck : AddDeck
 });
 
 HomeStack.navigationOptions = {

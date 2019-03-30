@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { connect } from 'react-redux';
 import { handleFetchDecks } from '../actions';
-import Deck from '../components/Deck';
+import Deck from './Deck';
 
-class HomeScreen extends Component {
+class Home extends Component {
   static navigationOptions = {
     title : 'All Decks'
   };
@@ -16,7 +16,6 @@ class HomeScreen extends Component {
   render() {
     const { decks } = this.props;
 
-    console.log(Object.keys(decks));
     return (
       <FlatList
         data={Object.keys(decks)}
@@ -59,4 +58,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(HomeScreen);
+export default connect(mapStateToProps)(Home);
