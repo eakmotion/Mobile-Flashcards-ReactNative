@@ -11,6 +11,7 @@ import Deck from './components/Deck'
 import DeckDetail from './components/DeckDetail'
 import Quiz from './components/Quiz'
 import QuizResult from './components/QuizResult'
+import AddCard from './components/AddCard'
 
 const store = createStore(reducer, middleware);
 
@@ -32,6 +33,9 @@ const MainNavigator = createStackNavigator({
   },
   QuizResult: {
     screen: QuizResult
+  },
+  AddCard: {
+    screen: AddCard
   }
 })
 

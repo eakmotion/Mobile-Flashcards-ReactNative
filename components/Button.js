@@ -3,7 +3,6 @@ import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Colors from '../constants/Colors';
 
 const Button = ({ children, onPress, textOnly, style = {} }) => {
-  console.log(style);
   const styleButton = textOnly ? styles.textButton : [ styles.button, style ];
   const styleText = textOnly ? [ styles.textButtonText, style ] : styles.buttonText;
 

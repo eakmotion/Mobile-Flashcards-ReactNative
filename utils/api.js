@@ -30,7 +30,7 @@ let decks = {
 export function fetchDecks() {
   return AsyncStorage.getItem(STORE_KEY)
     .then(results => {
-      if (results === null) {
+      if (results) {
         AsyncStorage.setItem(STORE_KEY, JSON.stringify(decks));
         return decks;
       } else {
